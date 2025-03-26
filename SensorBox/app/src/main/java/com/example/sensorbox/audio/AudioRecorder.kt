@@ -53,11 +53,5 @@ class AudioRecorder(private val context: Context) {
         soundUpdateThread.start()
     }
 
-    fun stopRecording() {
-        mediaRecorder?.apply {
-            stop()
-            release()
-        }
-        mediaRecorder = null
-    }
+
 }
