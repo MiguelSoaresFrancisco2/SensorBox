@@ -9,7 +9,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c095a0b-8824-4c89-8eff-cf6378c798f0" name="Changes" comment="" />
+    <list default="true" id="4c095a0b-8824-4c89-8eff-cf6378c798f0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SensorBox/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/SensorBox/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SensorBox/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/SensorBox/app/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SensorBox/app/src/main/java/com/example/sensorbox/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/SensorBox/app/src/main/java/com/example/sensorbox/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SensorBox/app/src/main/java/com/example/sensorbox/analysis/HiveAnalyzer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/SensorBox/app/src/main/java/com/example/sensorbox/analysis/HiveAnalyzer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SensorBox/app/src/main/java/com/example/sensorbox/location/LocationHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/SensorBox/app/src/main/java/com/example/sensorbox/location/LocationHelper.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,7 +59,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/miguel/Documentos/GitHub/SensorBox/SensorBox"
+    "last_opened_file_path": "/home/miguel/Documentos/GitHub/Bee_Connect"
   }
 }]]></component>
   <component name="RecentsManager">

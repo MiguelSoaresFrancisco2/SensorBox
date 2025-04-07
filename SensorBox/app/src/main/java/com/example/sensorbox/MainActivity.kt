@@ -10,6 +10,7 @@ import com.example.sensorbox.sensors.SensorManagerHelper
 import com.example.sensorbox.sensorui.SensorBoxUI
 import com.example.sensorbox.temperature.BatteryHelper
 import com.example.sensorbox.analysis.HiveAnalyzer
+import com.example.sensorbox.firebase.FirebaseHelper // <-- importa o helper
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializa os sensores e helpers
+        // Inicializar sensores e utilitários
         sensorManagerHelper = SensorManagerHelper(this)
         locationHelper = LocationHelper(this)
         audioRecorder = AudioRecorder(this)
@@ -31,18 +32,25 @@ class MainActivity : ComponentActivity() {
         setContent {
             var alerts by remember { mutableStateOf(listOf<String>()) }
 
-            // Atualiza os alertas continuamente a cada 250ms
             LaunchedEffect(Unit) {
                 while (true) {
                     alerts = HiveAnalyzer.analyze(
                         sensorManagerHelper.sensorValues,
                         audioRecorder.soundLevel
                     )
-                    delay(250)
+
+                    FirebaseHelper.enviarDadosSensor(
+                        temperatura = batteryHelper.batteryTemp,
+                        localizacao = locationHelper.location,
+                        som = audioRecorder.soundLevel,
+                        sensores = sensorManagerHelper.sensorValues,
+                        alertas = alerts
+                    )
+
+                    delay(2000)
                 }
             }
 
-            // UI principal
             SensorBoxUI(
                 sensorValues = sensorManagerHelper.sensorValues,
                 location = locationHelper.location,

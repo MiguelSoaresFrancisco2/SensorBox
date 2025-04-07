@@ -41,11 +41,13 @@ android {
 }
 
 dependencies {
+
     //FireBase
     implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.firebase:firebase-database-ktx")
     implementation ("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
 
     // AndroidX Core e Ciclo de Vida

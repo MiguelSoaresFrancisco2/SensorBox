@@ -19,20 +19,17 @@ object HiveAnalyzer {
 
         // 💡 Luminosidade
         val lux = sensorValues["Luminosidade"]
-            ?.replace(",", ".")     // troca vírgula por ponto se necessário
-            ?.trim()                // remove espaços
+            ?.replace(",", ".")
+            ?.trim()
             ?.toDoubleOrNull() ?: 0.0
 
-        if (lux < 25) {
-            alerts.add("✅ Colmeia fechada (Luminosidade: %.1f lux)".format(lux))
-        } else {
+        if (lux >= 25) {
             alerts.add("☀️ Alerta: Colmeia aberta! (Luminosidade: %.1f lux)".format(lux))
         }
 
         // 📦 Movimento
         val linAcc = parseSensor(sensorValues["Aceleração Linear"])
         val linAccMag = magnitude(linAcc)
-
         updateAccBuffer(linAccMag)
         val accFiltered = average(lastAccMagnitudes)
 
@@ -41,29 +38,19 @@ object HiveAnalyzer {
 
         if (accAlertHistory.count { it } >= 8) {
             alerts.add("🚨 Movimento suspeito na colmeia (Aceleração média: %.2f)".format(accFiltered))
-        } else {
-            alerts.add("✅ Colmeia está estável (Aceleração média: %.2f)".format(accFiltered))
         }
 
-        // 📐 Inclinação (com gravidade)
+        // 📐 Inclinação (gravidade Z a partir de posição 4 e 5)
         val gravity = parseSensor(sensorValues["Gravidade"])
-
         val zInt = gravity.getOrNull(4) ?: 0.0
         val zDec = gravity.getOrNull(5) ?: 0.0
         val gravityZ = zInt + (zDec / 100)
-
         val isTilted = gravityZ < 8.0
         updateBooleanBuffer(tiltAlertHistory, isTilted)
 
         if (tiltAlertHistory.count { it } >= 8) {
-            alerts.add("⚠️ Colmeia inclinada (Gravidade : %.2f)".format(gravityZ))
-        } else {
-            alerts.add("✅ Colmeia nivelada (Gravidade : %.2f)".format(gravityZ))
+            alerts.add("⚠️ Colmeia inclinada (Gravidade: %.2f)".format(gravityZ))
         }
-
-
-
-
 
         // 🔊 Som
         val db = soundLevel.filter { it.isDigit() }.toIntOrNull() ?: 0
@@ -73,15 +60,11 @@ object HiveAnalyzer {
             alerts.add("🔇 Baixa atividade sonora (Som: $db dB)")
         } else if (db in 66..80) {
             alerts.add("🔊 Agitação sonora (Som: $db dB)")
-        } else {
-            alerts.add("✅ Som normal (Som: $db dB)")
         }
 
         // 🐝 Enxameação
         if (shouldTriggerSwarmAlert()) {
             alerts.add("🐝 Alerta de possível enxameação! (>80 dB por vários segundos)")
-        } else {
-            alerts.add("✅ Nenhum sinal de enxameação")
         }
 
         return alerts
